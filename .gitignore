@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+.env
+test-results/
+playwright-report/
+blob-report/
+node_modules/
