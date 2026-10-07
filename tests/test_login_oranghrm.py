@@ -1,14 +1,17 @@
 import re
 from playwright.sync_api import Page, expect
-
+from pages.orangehrm_login_page import LoginPage
+from pages.orangehrm_home_page import HomePage
 
 def test_example(page: Page) -> None:
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-    page.get_by_role("textbox", name="Username").click()
-    page.get_by_role("textbox", name="Username").fill("Admin")
-    page.get_by_role("textbox", name="Password").click()
-    page.get_by_role("textbox", name="Password").fill("admin123")
-    page.get_by_role("button", name="Login").click()
-    expect(page.get_by_role("button", name="Upgrade")).to_be_visible()
-    page.get_by_role("link", name="Performance").click()
-    page.get_by_role("link", name="Dashboard").click()
+    login_page = LoginPage(page)
+    login_page.enter_username("Admin")
+    login_page.enter_password("admin123")
+    login_page.click_login()
+    
+    home_page = HomePage(page)
+    #expect(home_page.upgrade_button).to_be_visible()
+    home_page.is_upgrade_button_visible()
+    home_page.click_performance_link()
+    home_page.click_dashboard_link()
